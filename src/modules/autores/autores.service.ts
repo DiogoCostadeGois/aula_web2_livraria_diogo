@@ -30,6 +30,18 @@ export class AutoresService {
     if (!autorEncontrado) {
       return 'Autor não encontrado';
     }
+    return autorEncontrado;
+  }
+
+  criarAutor(bodyRequest: any) {
+    if (!bodyRequest.nome || !bodyRequest.email) {
+      return 'Nome e email são obrigatórios';
+    }
+    autores.push({
+      id: autores.length + 1,
+      nome: bodyRequest.nome,
+      email: bodyRequest.email,
+    });
     return autores;
   }
 }
