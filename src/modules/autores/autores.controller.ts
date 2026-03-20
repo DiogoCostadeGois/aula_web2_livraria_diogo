@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AutoresService } from './autores.service';
 import { ParseIntPipe } from '@nestjs/common';
+import { AtualizarAutorDto, CriarAutorDto } from './autores.dto';
+
 @Controller('autores')
 export class AutoresController {
   constructor(private readonly autoresService: AutoresService) {}
@@ -14,7 +16,14 @@ export class AutoresController {
     return this.autoresService.listarAutor(id);
   }
   @Post('/criar-autor')
-  criarAutor(@Body() bodyRequest: any) {
+  criarAutor(@Body() bodyRequest: CriarAutorDto) {
     return this.autoresService.criarAutor(bodyRequest);
+  }
+  @Put('atualizar-autor/:id')
+  atualizarAutor(
+    @Param('id', ParseIntPipe) idAutor: number,
+    @Body() bodyRequest: AtualizarAutorDto,
+  ) {
+    return this.autoresService.AtualizadorAutor(idAutor, bodyRequest);
   }
 }
