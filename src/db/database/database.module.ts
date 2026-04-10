@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { DRIZZLE } from './database.constants';
+import { DATABASE_URL, DRIZZLE } from './database.constants';
 import { drizzle } from 'drizzle-orm/node-mssql';
 import { Global } from '@nestjs/common';
-import * as schema from '../schemas';
+import * as schema from '../schemas/index';
 
 @Global()
 @Module({
@@ -11,7 +11,7 @@ import * as schema from '../schemas';
       provide: DRIZZLE,
       inject: [],
       useFactory: () => {
-        return drizzle('', { schema });
+        return drizzle(DATABASE_URL, { schema: schema });
       },
     },
   ],

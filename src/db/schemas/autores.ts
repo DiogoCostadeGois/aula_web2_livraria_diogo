@@ -5,3 +5,5 @@ export const autoresTable = mssqlTable('autores', {
   nome: varchar({ length: 100 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),
 });
+export type Autor = typeof autoresTable.$inferSelect;
+export type CriarAutor = typeof autoresTable.$inferInsert;
