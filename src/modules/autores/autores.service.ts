@@ -36,10 +36,9 @@ export class AutoresService {
     return this.autoresRepository.atualizarAutor(idAutor, bodyRequest);
   }
 
-  //  deletarAutor (idAutor:number) {
-  //   this.listarAutor(idAutor);
-  //   autores = autores.filter((autor)=>autor.id !== idAutor);
+  async deletarAutor(idAutor: number) {
+    await this.listarAutor(idAutor);
 
-  //   return autores;
-  //  }
+    return this.autoresRepository.deletarAutor(idAutor);
+  }
 }
