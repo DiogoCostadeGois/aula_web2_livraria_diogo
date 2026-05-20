@@ -3,9 +3,12 @@ import {
   Inject,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { error } from 'console';
 import { DRIZZLE } from 'src/db/database/database.constants';
 import { livrosTable } from 'src/db/schemas';
 import type { DrizzleDB } from 'src/db/types/drizzleDB';
+import { criarLivrosDto } from './livros.dto';
+import { title } from 'process';
 
 @Injectable()
 export class LivrosRepository {
@@ -18,6 +21,19 @@ export class LivrosRepository {
       return livros;
     } catch (error) {
       throw new InternalServerErrorException('Erro ao listar livros');
+    }
+  }
+  async criarLivros(bodyRequest: criarLivrosDto) {
+    try {
+      await this.db.insert(livrosTable).values({
+        idAutor: bodyRequest.id_autor,
+        titulo: bodyRequest.titulo,
+        descricao: bodyRequest.titulo,
+      });
+
+      return 'Livro ${bodyRequest.titulo} criado com sucesso';
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao criar livro');
     }
   }
 }
