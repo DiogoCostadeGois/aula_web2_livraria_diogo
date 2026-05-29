@@ -2,6 +2,7 @@ import {
   Injectable,
   Inject,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { error } from 'console';
 import { DRIZZLE } from 'src/db/database/database.constants';
@@ -9,10 +10,11 @@ import { livrosTable } from 'src/db/schemas';
 import type { DrizzleDB } from 'src/db/types/drizzleDB';
 import { criarLivrosDto } from './livros.dto';
 import { title } from 'process';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class LivrosRepository {
-  constructor(@Inject(DRIZZLE) private readonly db: DrizzleDB) {}
+  constructor(@Inject(DRIZZLE) private readonly db: DrizzleDB) { }
 
   async listarLivros() {
     try {
@@ -36,4 +38,25 @@ export class LivrosRepository {
       throw new InternalServerErrorException('Erro ao criar livro');
     }
   }
+
+  async listarLivro(id: number) {
+    try {
+
+      const livroEncontradi = await this.db.select().from(livrosTable).where(eq(livrosTable.id, id))
+
+      return [0];
+
+    } catch (error) {
+      throw new NotFoundException('erro ao encontra o livro')
+    }
+
+  }
+
+
+
 }
+
+
+
+
+
