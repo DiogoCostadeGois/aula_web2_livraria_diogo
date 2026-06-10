@@ -18,7 +18,7 @@ export class LivrosService {
     await this.AutoresService.listarAutor(bodyRequest.id_autor);
     return await this.LivrosRepository.criarLivros(bodyRequest);
   }
-  async listarLivro(id: number){
+  async listarLivro(id: number){  
     const livroEncontrado = await this.LivrosRepository.listarLivro(id)
 
     if(!livroEncontrado){
@@ -26,4 +26,8 @@ export class LivrosService {
     }
     return livroEncontrado;
   }
+  async listarLivrosComAutor() { 
+    return await this.LivrosRepository.listarLivrosComAutor(); 
+
+}
 }
