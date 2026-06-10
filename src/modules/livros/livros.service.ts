@@ -30,4 +30,10 @@ export class LivrosService {
     return await this.LivrosRepository.listarLivrosComAutor(); 
 
 }
+
+async listarLivroComAutor(id: number) {
+  await this.listarLivro(id); 
+  
+  return await this.LivrosRepository.listarLivroComAutor(id);
+}
 }

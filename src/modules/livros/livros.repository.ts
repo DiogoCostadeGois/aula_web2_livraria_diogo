@@ -61,6 +61,19 @@ export class LivrosRepository {
     throw new InternalServerErrorException('Erro ao listar livros com autor');
     }
   }
+  async listarLivroComAutor(id: number) {
+    try{
+      const livroComAutor = await this.db
+      .select()
+      .from(livrosTable)
+      .innerJoin(autoresTable, eq(livrosTable.idAutor, autoresTable.id))
+      .where(eq(livrosTable.id, id));
+      return livroComAutor[0];
+    } catch (error) {
+      throw new NotFoundException('Erro ao listar livro com autor');
+    }
+    
+  }
 }
 
 
