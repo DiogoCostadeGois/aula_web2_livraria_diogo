@@ -74,6 +74,15 @@ export class LivrosRepository {
     }
     
   }
+  async deletarLivro(id: number) {
+    try{
+      await this.db.delete(livrosTable).where(eq(livrosTable.id, id));
+
+      return 'Livro ${id} deletado com sucesso'; 
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao deletar livro');
+    }
+  }
 }
 
 

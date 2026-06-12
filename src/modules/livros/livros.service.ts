@@ -36,4 +36,8 @@ async listarLivroComAutor(id: number) {
   
   return await this.LivrosRepository.listarLivroComAutor(id);
 }
+async deletarLivro(id: number) {
+  await this.listarLivro(id);
+  return await this.LivrosRepository.deletarLivro(id);
+ }
 }
